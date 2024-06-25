@@ -21,7 +21,7 @@ public class ProductsService {
         return productsRepo.findAll();
     }
 
-    public Products selectOne(int productId) {
+    public Products selectOne(Long productId) {
         return productsRepo.findById(productId).orElse(null);
     }
 
@@ -29,7 +29,7 @@ public class ProductsService {
         return productsRepo.save(product);
     }
 
-    public void delete(int productId) {
+    public void delete(Long productId) {
         productsRepo.deleteById(productId);
     }
 }

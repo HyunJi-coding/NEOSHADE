@@ -1,13 +1,7 @@
 package org.example.login.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -18,7 +12,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Products {
     @Id
-    private int product_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int productId;
     private String name;
     private String description;
     private int price;
@@ -26,7 +21,8 @@ public class Products {
     private LocalDateTime created_at;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "category_id")
+    @JoinColumn(name = "categoryId", referencedColumnName = "categoryId")
+    @ToString.Exclude
     private Categories categories;
 
 }

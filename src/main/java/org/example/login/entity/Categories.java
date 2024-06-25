@@ -1,10 +1,7 @@
 package org.example.login.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -16,9 +13,10 @@ import java.util.List;
 public class Categories {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int category_id;
+    private int categoryId;
     private String name;
 
     @OneToMany(mappedBy = "categories")
+    @ToString.Exclude
     private List<Products> products;
 }
