@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -35,13 +35,11 @@
 </head>
 <div th:include="~{/comm/header}"></div>
 <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
-
     <section class="bg-white py-8">
 
         <div class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
             <nav id="store" class="w-full z-30 top-0 px-6 py-1">
                 <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-3">
-
                     <a class="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl " href="#">
                         Sign up
                     </a>
@@ -52,54 +50,45 @@
         <div class="font-[sans-serif]">
             <div class="signupbottommargin flex fle-col items-center justify-center py-6 px-4">
                 <div class="items-center gap-4 max-w-6xl w-full">
-
-                    <form>
+                    <form name="frm_signup" action="/users/insert_exe" method="post">
                         <div class="grid sm:grid-cols-2 gap-y-7 gap-x-12">
                             <div>
                                 <label class="text-sm mb-2 block">이름</label>
-                                <input name="name" type="text" class="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500" placeholder="이름을 입력하세요" />
+                                <input name="username" type="text" class="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500" placeholder="이름을 입력하세요" />
                             </div>
-                            <div>
-                                <label class="text-sm mb-2 block">우편번호</label>
-                                <input name="lname" type="text" class="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500" placeholder="우편번호를 입력하세요" />
-                            </div>
+
                             <div>
                                 <label class="text-sm mb-2 block">이메일</label>
                                 <input name="email" type="text" class="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500" placeholder="이메일을 입력하세요" />
                             </div>
-                            <div>
-                                <label class="text-sm mb-2 block">도로명 주소</label>
-                                <input name="number" type="number" class="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500" placeholder="도로명 주소를 입력하세요" />
-                            </div>
+
                             <div>
                                 <label class="text-sm mb-2 block">비밀번호</label>
                                 <input name="password" type="password" class="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500" placeholder="비밀번호를 입력하세요" />
                             </div>
                             <div>
-                                <label class="text-sm mb-2 block">상세주소</label>
-                                <input name="name" type="text" class="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500" placeholder="상세주소를 입력하세요" />
+                                <label class="text-sm mb-2 block">주소</label>
+                                <input name="address" type="text" class="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500" placeholder="상세주소를 입력하세요" />
                             </div>
                             <div>
                                 <label class="text-sm mb-2 block">비밀번호 확인</label>
-                                <input name="name" type="text" class="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500" placeholder="비밀번호를 입력하세요" />
+                                <input name="passwordcheck" type="text" class="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500" placeholder="비밀번호를 입력하세요" />
                             </div>
                             <div>
                                 <label class="text-sm mb-2 block">전화번호</label>
-                                <input name="cpassword" type="password" class="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500" placeholder="전화번호를 입력하세요" />
+                                <input name="phone" type="text" class="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500" placeholder="전화번호를 입력하세요" />
                             </div>
                         </div>
 
                         <div class="!mt-10">
-                            <button type="button" class="signuptopmargin min-w-[150px] py-3 px-4 text-sm font-semibold tracking-wide rounded-lg text-white bg-gray-600 hover:bg-gray-700 focus:outline-none">
-                                Sign up
-                            </button>
+                            <input type="submit" value="Sign up" class="signuptopmargin min-w-[150px] py-3 px-4 text-sm font-semibold tracking-wide rounded-lg text-white bg-gray-600 hover:bg-gray-700 focus:outline-none">
                         </div>
+
                     </form>
                 </div>
             </div>
         </div>
     </section>
-    
     <div th:include="~{/comm/footer}"></div>
 </body>
 
