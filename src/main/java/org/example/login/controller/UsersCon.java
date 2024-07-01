@@ -34,6 +34,6 @@ public class UsersCon {
     @PostMapping("/insert_exe")
     public String insertExe(@ModelAttribute Users users){
         usersService.insert(users);
-        return "redirect:/home/index";
+        return "redirect:/home";
     }
 }

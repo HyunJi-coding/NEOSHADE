@@ -1,9 +1,6 @@
 package org.example.login.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,5 +28,14 @@ public class Users {
 
     private String phone;
 
+    private String role;
+
     private LocalDateTime created_at;
+
+    @PrePersist
+    protected void onCreate() {
+        if (role == null) {
+            role = "USER";
+        }
+    }
 }

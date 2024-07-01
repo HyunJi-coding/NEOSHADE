@@ -23,7 +23,11 @@ public class UsersService {
     }
 
     public Users selectOne(int keyId) {
-        return usersRepo.findById(keyId).orElse(null);
+        return usersRepo.findById(keyId).get();
+    }
+
+    public Users selectEmail(String email) {
+        return usersRepo.findByEmail(email);
     }
 
     public void insert(Users users) {
