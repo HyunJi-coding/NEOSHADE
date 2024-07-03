@@ -27,9 +27,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/", "/home","/comm/**","/img/**","/css/**","/js/**","/docs/**","/secure/**","/users/**").permitAll()
-                .antMatchers("/study/**").hasAnyRole("USER","ADMIN")
-                .antMatchers("/member/**").hasRole("ADMIN")
+                .antMatchers("/", "/home","/comm/**","/img/**","/css/**","/js/**","/docs/**","/secure/**","/users/**", "/products/**").permitAll()
+//                .antMatchers("/study/**").hasAnyRole("USER","ADMIN")
+                .antMatchers("/setting/**").hasRole("ADMIN")
                 .anyRequest().authenticated();
 
         /* formLogi 부분 */
@@ -38,7 +38,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/secure/login_exe")
                 .successHandler(handlerLoginSucess)
                 .failureHandler(handlerLoginFailure)
-                //.defaultSuccessUrl("/") // successHandler 무시
                 .permitAll();
 
         http.logout()

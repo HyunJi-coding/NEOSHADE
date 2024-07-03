@@ -32,6 +32,8 @@
 
     </style>
 
+
+
 </head>
 
 <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
@@ -51,7 +53,7 @@
                     <div class="grid items-start grid-cols-1 lg:grid-cols-2 gap-10">
                         <div class="space-y-4 text-center top-8">
                             <div class="bg-gray-100 p-4 flex items-center sm:h-[380px] rounded-lg">
-                                <img src="https://readymadeui.com/images/product14.webp" alt="Product" class="w-full max-h-full object-contain object-top" />
+                                <img th:src="${product.getImg()}" alt="Product" class="w-full max-h-full object-contain object-top" />
                             </div>
 
                         </div>
@@ -75,18 +77,10 @@
                             </div>
 
                             <div class="mt-4">
-                                <h3 th:text="${product.getPrice()}" class="text-gray-800 text-4xl font-bold">$30</h3>
+                                <h3 th:text="${formattedPrice}" class="text-gray-800 text-4xl font-bold"></h3>
                             </div>
 
-                            <div class="mt-8">
-                                <h3 class="text-xl font-bold text-gray-800">Choose a Size</h3>
-                                <div class="flex flex-wrap gap-4 mt-4">
-                                    <button type="button" class="w-10 h-10 border hover:border-gray-400 font-semibold text-sm rounded-lg flex items-center justify-center shrink-0">SM</button>
-                                    <button type="button" class="w-10 h-10 border hover:border-gray-400 border-gray-400 font-semibold text-sm rounded-lg flex items-center justify-center shrink-0">MD</button>
-                                    <button type="button" class="w-10 h-10 border hover:border-gray-400 font-semibold text-sm rounded-lg flex items-center justify-center shrink-0">LG</button>
-                                    <button type="button" class="w-10 h-10 border hover:border-gray-400 font-semibold text-sm rounded-lg flex items-center justify-center shrink-0">XL</button>
-                                </div>
-                            </div>
+
 
                             <div class="flex flex-wrap gap-4 mt-8">
                                 <button type="button" class="min-w-[200px] px-4 py-3 bg-gray-400 hover:bg-gray-500 text-white text-sm font-semibold rounded-lg">Buy now</button>

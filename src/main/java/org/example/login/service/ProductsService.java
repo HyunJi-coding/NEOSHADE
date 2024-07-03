@@ -3,6 +3,9 @@ package org.example.login.service;
 import org.example.login.entity.Products;
 import org.example.login.repository.ProductsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +22,15 @@ public class ProductsService {
 
     public List<Products> selectAll() {
         return productsRepo.findAll();
+    }
+
+    public List<Products> selectAllByOrderByCreatedAtAsc(){
+        return productsRepo.findAllByOrderByCreatedAtAsc();
+    }
+
+    public List<Products> findLatestProducts(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("createdAt").descending());
+        return productsRepo.findAllByOrderByCreatedAtDesc(pageable);
     }
 
     public Products selectOne(Long productId) {

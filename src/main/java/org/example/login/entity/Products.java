@@ -4,6 +4,7 @@ import javax.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -13,12 +14,16 @@ import java.time.LocalDateTime;
 public class Products {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int productId;
+    private long productId;
     private String name;
     private String description;
-    private int price;
-    private int stock;
-    private LocalDateTime created_at;
+    private long price;
+    private long stock;
+    private String img;
+    private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "products")
+    private List<ShoppingCart> shoppingCart;
 
     @ManyToOne
     @JoinColumn(name = "categoryId", referencedColumnName = "categoryId")
