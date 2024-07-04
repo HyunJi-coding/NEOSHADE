@@ -2,7 +2,9 @@ package org.example.login.repository;
 
 import org.example.login.entity.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UsersRepo extends JpaRepository<Users,Integer> {
+@Repository
+public interface UsersRepo extends JpaRepository<Users,Long> {
     Users findByEmail(String email);
 }

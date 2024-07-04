@@ -22,7 +22,7 @@ public class UsersService {
         return usersRepo.findAll();
     }
 
-    public Users selectOne(int keyId) {
+    public Users selectOne(long keyId) {
         return usersRepo.findById(keyId).get();
     }
 
@@ -40,7 +40,7 @@ public class UsersService {
         usersRepo.save(users);
     }
 
-    public void delete(int keyId) {
+    public void delete(long keyId) {
         usersRepo.deleteById(keyId);
     }
 }

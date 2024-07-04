@@ -84,7 +84,7 @@
 
                             <div class="flex flex-wrap gap-4 mt-8">
                                 <button type="button" class="min-w-[200px] px-4 py-3 bg-gray-400 hover:bg-gray-500 text-white text-sm font-semibold rounded-lg">Buy now</button>
-                                <button type="button" class="min-w-[200px] px-4 py-2.5 border border-gray-400 bg-transparent hover:bg-gray-50 text-gray-800 text-sm font-semibold rounded-lg">Add to cart</button>
+                                <button id="addToCartButton" th:data-product-id="${product.getProductId()}" type="button" class="min-w-[200px] px-4 py-2.5 border border-gray-400 bg-transparent hover:bg-gray-50 text-gray-800 text-sm font-semibold rounded-lg">Add to cart</button>
                             </div>
 
                             <div class="mt-8">
@@ -97,7 +97,7 @@
 
                                 <div class="mt-8">
                                     <h3 class="text-lg font-bold text-gray-800"></h3>
-                                    <p th:text="${product.getDescription()}"class="text-sm text-gray-600 mt-4">Step up your footwear game with our premium men's shoes. Designed for comfort and crafted with a contemporary aesthetic, these versatile shoes are a must-have addition to your wardrobe. The supple and breathable materials ensure all-day comfort, making them perfect for everyday wear.</p>
+                                    <p th:text="${product.getDescription()}"class="text-sm text-gray-600 mt-4"></p>
                                 </div>
 
                             </div>
@@ -170,6 +170,30 @@
     </div>
 
     <div th:replace="~{/comm/footer}"></div>
+
+
+    <script>
+        document.getElementById('addToCartButton').addEventListener('click', function() {
+            var productId = this.getAttribute('data-product-id');
+
+            fetch('/api/shopping-cart/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    'productId': productId
+                })
+            })
+                .then(response => response.text())
+                .then(data => {
+                    alert(data); // 성공 메시지 출력
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
 
 </body>
 

@@ -12,7 +12,6 @@ public class SecureCon {
 
     @GetMapping("/login")
     public String doSecureLogin(@RequestParam(value="message", defaultValue = "default", required = false) String strMsg, Model model) {
-        System.out.println();
         model.addAttribute("message", strMsg);
 
         return "/login/login";

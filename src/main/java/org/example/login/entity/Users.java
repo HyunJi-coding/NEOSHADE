@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userId;
+    private long userId;
 
     private String username;
 
@@ -30,7 +31,10 @@ public class Users {
 
     private String role;
 
-    private LocalDateTime created_at;
+    @OneToMany(mappedBy = "users")
+    private List<ShoppingCart> shoppingCarts;
+
+    private LocalDateTime createdAt;
 
     @PrePersist
     protected void onCreate() {

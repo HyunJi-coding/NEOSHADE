@@ -30,7 +30,7 @@ public class HandlerLoginSucess implements AuthenticationSuccessHandler {
         Users vo_member = usersService.selectEmail(authentication.getName());
 
         HttpSession session = request.getSession();
-//            session.setAttribute("ss_member_id", vo_member.getUserId());
+            session.setAttribute("ss_member_id", vo_member.getUserId());
             session.setAttribute("ss_login_id", vo_member.getEmail());
             session.setAttribute("ss_name", vo_member.getUsername());
             session.setAttribute("ss_role", vo_member.getRole());
