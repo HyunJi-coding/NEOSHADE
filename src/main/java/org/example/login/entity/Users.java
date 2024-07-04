@@ -34,6 +34,9 @@ public class Users {
     @OneToMany(mappedBy = "users")
     private List<ShoppingCart> shoppingCarts;
 
+    @OneToMany(mappedBy = "users")
+    private List<Reviews> reviews;
+
     private LocalDateTime createdAt;
 
     @PrePersist

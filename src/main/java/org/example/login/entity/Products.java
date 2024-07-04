@@ -25,6 +25,9 @@ public class Products {
     @OneToMany(mappedBy = "products")
     private List<ShoppingCart> shoppingCart;
 
+    @OneToMany(mappedBy = "products")
+    private List<Reviews> reviews;
+
     @ManyToOne
     @JoinColumn(name = "categoryId", referencedColumnName = "categoryId")
     @ToString.Exclude
