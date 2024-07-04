@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tailwind Starter Template - Nordic Shop: Tailwind Toolbox</title>
+    <meta name="description" content="Free open source Tailwind CSS Store template">
+    <meta name="keywords" content="tailwind,tailwindcss,tailwind css,css,starter template,free template,store template, shop layout, minimal, monochrome, minimalistic, theme, nordic">
+
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
+
+    <style>
+        .work-sans {
+            font-family: 'Work Sans', sans-serif;
+        }
+
+        .ordercenter{
+            justify-content: center;
+        }
+
+        .ordermargin{
+            margin-bottom: 150px;
+            margin-top: 50px;
+        }
+
+    </style>
+
+</head>
+
+<body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
+
+    <div th:include="~{/comm/header}"></div>
+    <section class="bg-white py-8">
+
+    <div class="font-[sans-serif] bg-white ordermargin">
+        <div class="flex max-sm:flex-col gap-12 max-lg:gap-4 h-full ordercenter">
+            <div class="bg-gray-800 sm:sticky sm:top-0 lg:min-w-[370px] sm:min-w-[300px]">
+                <div class="relative h-full">
+                    <div class="px-4 py-8 sm:overflow-auto sm:h-[calc(100vh-60px)]">
+                        <div class="space-y-4">
+
+                            <div class="flex items-start gap-4">
+                                <div class="w-32 h-28 max-lg:w-24 max-lg:h-24 flex p-3 shrink-0 bg-gray-300 rounded-md">
+                                    <img src='https://readymadeui.com/images/product10.webp' class="w-full object-contain" />
+                                </div>
+                                <div class="w-full">
+                                    <h3 class="text-base text-white">Split Sneakers</h3>
+                                    <ul class="text-xs text-gray-300 space-y-2 mt-2">
+                                        <li class="flex flex-wrap gap-4">Size <span class="ml-auto">37</span></li>
+                                        <li class="flex flex-wrap gap-4">Quantity <span class="ml-auto">2</span></li>
+                                        <li class="flex flex-wrap gap-4">Total Price <span class="ml-auto">$40</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="w-32 h-28 max-lg:w-24 max-lg:h-24 flex p-3 shrink-0 bg-gray-300 rounded-md">
+                                    <img src='https://readymadeui.com/images/product11.webp' class="w-full object-contain" />
+                                </div>
+                                <div class="w-full">
+                                    <h3 class="text-base text-white">Velvet Boots</h3>
+                                    <ul class="text-xs text-gray-300 space-y-2 mt-2">
+                                        <li>Size <span class="float-right">37</span></li>
+                                        <li>Quantity <span class="float-right">2</span></li>
+                                        <li>Total Price <span class="float-right">$40</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="w-32 h-28 max-lg:w-24 max-lg:h-24 flex p-3 shrink-0 bg-gray-300 rounded-md">
+                                    <img src='https://readymadeui.com/images/product14.webp' class="w-full object-contain" />
+                                </div>
+                                <div class="w-full">
+                                    <h3 class="text-base text-white">Echo Elegance</h3>
+                                    <ul class="text-xs text-gray-300 space-y-2 mt-2">
+                                        <li>Size <span class="float-right">37</span></li>
+                                        <li>Quantity <span class="float-right">2</span></li>
+                                        <li>Total Price <span class="float-right">$40</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="w-32 h-28 max-lg:w-24 max-lg:h-24 flex p-3 shrink-0 bg-gray-300 rounded-md">
+                                    <img src='https://readymadeui.com/images/product13.webp' class="w-full object-contain" />
+                                </div>
+                                <div class="w-full">
+                                    <h3 class="text-base text-white">Pumps</h3>
+                                    <ul class="text-xs text-gray-300 space-y-2 mt-2">
+                                        <li>Size <span class="float-right">37</span></li>
+                                        <li>Quantity <span class="float-right">2</span></li>
+                                        <li>Total Price <span class="float-right">$40</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="md:absolute md:left-0 bg-gray-800 w-full p-4">
+                        <h4 class="flex flex-wrap gap-4 text-base text-white">Total <span class="ml-auto">$84.00</span></h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="max-w-4xl w-full h-max rounded-md px-4 py-8 sticky top-0">
+                <h2 class="text-2xl font-bold text-gray-800">Complete your order</h2>
+                <form class="mt-8">
+                    <div>
+                        <h3 class="text-base text-gray-800 mb-4">Personal Details</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <input type="text" placeholder="First Name"
+                                       class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
+                            </div>
+
+                            <div>
+                                <input type="text" placeholder="Last Name"
+                                       class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
+                            </div>
+
+                            <div>
+                                <input type="email" placeholder="Email"
+                                       class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
+                            </div>
+
+                            <div>
+                                <input type="number" placeholder="Phone No."
+                                       class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8">
+                        <h3 class="text-base text-gray-800 mb-4">Shipping Address</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <input type="text" placeholder="Address Line"
+                                       class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
+                            </div>
+                            <div>
+                                <input type="text" placeholder="City"
+                                       class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
+                            </div>
+                            <div>
+                                <input type="text" placeholder="State"
+                                       class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
+                            </div>
+                            <div>
+                                <input type="text" placeholder="Zip Code"
+                                       class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 max-md:flex-col mt-8">
+                            <button type="button" class="rounded-md px-6 py-3 w-full font-semibold text-sm tracking-wide bg-transparent hover:bg-gray-100 border border-gray-300 text-gray-800 max-md:order-1">Cancel</button>
+                            <button type="button" class="rounded-md px-6 py-3 w-full font-semibold text-sm tracking-wide text-white bg-gray-600 hover:bg-gray-700 focus:outline-none">Complete Purchase</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </section>
+
+    <div th:include="~{/comm/footer}"></div>
+
+</body>
+
+</html>
