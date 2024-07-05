@@ -25,10 +25,6 @@ public class Users {
 
     private String password;
 
-    private String address;
-
-    private String phone;
-
     private String role;
 
     @OneToMany(mappedBy = "users")
