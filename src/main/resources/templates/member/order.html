@@ -43,66 +43,27 @@
                     <div class="px-4 py-8 sm:overflow-auto sm:h-[calc(100vh-60px)]">
                         <div class="space-y-4">
 
-                            <div class="flex items-start gap-4">
-                                <div class="w-32 h-28 max-lg:w-24 max-lg:h-24 flex p-3 shrink-0 bg-gray-300 rounded-md">
-                                    <img src='https://readymadeui.com/images/product10.webp' class="w-full object-contain" />
-                                </div>
-                                <div class="w-full">
-                                    <h3 class="text-base text-white">Split Sneakers</h3>
-                                    <ul class="text-xs text-gray-300 space-y-2 mt-2">
-                                        <li class="flex flex-wrap gap-4">Size <span class="ml-auto">37</span></li>
-                                        <li class="flex flex-wrap gap-4">Quantity <span class="ml-auto">2</span></li>
-                                        <li class="flex flex-wrap gap-4">Total Price <span class="ml-auto">$40</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="flex items-start gap-4">
-                                <div class="w-32 h-28 max-lg:w-24 max-lg:h-24 flex p-3 shrink-0 bg-gray-300 rounded-md">
-                                    <img src='https://readymadeui.com/images/product11.webp' class="w-full object-contain" />
-                                </div>
-                                <div class="w-full">
-                                    <h3 class="text-base text-white">Velvet Boots</h3>
-                                    <ul class="text-xs text-gray-300 space-y-2 mt-2">
-                                        <li>Size <span class="float-right">37</span></li>
-                                        <li>Quantity <span class="float-right">2</span></li>
-                                        <li>Total Price <span class="float-right">$40</span></li>
-                                    </ul>
+                            <div th:each="item : ${shoppingCartItems}">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-32 h-28 max-lg:w-24 max-lg:h-24 flex p-3 shrink-0 rounded-md">
+                                        <img th:src="${item.getProducts.getImg()}" class="w-full object-contain" />
+                                    </div>
+                                    <div class="w-full">
+                                        <h3 th:text="${item.getProducts.getName()}" class="text-base text-white"></h3>
+                                        <ul class="text-xs text-gray-300 space-y-2 mt-2">
+                                            <li class="flex flex-wrap gap-4">Quantity <span th:text="${item.getQuantity()}" class="ml-auto">2</span></li>
+                                            <li class="flex flex-wrap gap-4">Total Price <span th:text="${item.getQuantity() * item.getProducts().getPrice()}" class="ml-auto">$40</span></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="flex items-start gap-4">
-                                <div class="w-32 h-28 max-lg:w-24 max-lg:h-24 flex p-3 shrink-0 bg-gray-300 rounded-md">
-                                    <img src='https://readymadeui.com/images/product14.webp' class="w-full object-contain" />
-                                </div>
-                                <div class="w-full">
-                                    <h3 class="text-base text-white">Echo Elegance</h3>
-                                    <ul class="text-xs text-gray-300 space-y-2 mt-2">
-                                        <li>Size <span class="float-right">37</span></li>
-                                        <li>Quantity <span class="float-right">2</span></li>
-                                        <li>Total Price <span class="float-right">$40</span></li>
-                                    </ul>
-                                </div>
-                            </div>
 
-                            <div class="flex items-start gap-4">
-                                <div class="w-32 h-28 max-lg:w-24 max-lg:h-24 flex p-3 shrink-0 bg-gray-300 rounded-md">
-                                    <img src='https://readymadeui.com/images/product13.webp' class="w-full object-contain" />
-                                </div>
-                                <div class="w-full">
-                                    <h3 class="text-base text-white">Pumps</h3>
-                                    <ul class="text-xs text-gray-300 space-y-2 mt-2">
-                                        <li>Size <span class="float-right">37</span></li>
-                                        <li>Quantity <span class="float-right">2</span></li>
-                                        <li>Total Price <span class="float-right">$40</span></li>
-                                    </ul>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
                     <div class="md:absolute md:left-0 bg-gray-800 w-full p-4">
-                        <h4 class="flex flex-wrap gap-4 text-base text-white">Total <span class="ml-auto">$84.00</span></h4>
+                        <h4 class="flex flex-wrap gap-4 text-base text-white">Total <span th:text="${totalPrice + 3000}"> class="ml-auto">$84.00</span></h4>
                     </div>
                 </div>
             </div>
@@ -114,22 +75,12 @@
                         <h3 class="text-base text-gray-800 mb-4">Personal Details</h3>
                         <div class="grid md:grid-cols-2 gap-4">
                             <div>
-                                <input type="text" placeholder="First Name"
+                                <input type="text" placeholder="이름"
                                        class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
                             </div>
 
                             <div>
-                                <input type="text" placeholder="Last Name"
-                                       class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
-                            </div>
-
-                            <div>
-                                <input type="email" placeholder="Email"
-                                       class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
-                            </div>
-
-                            <div>
-                                <input type="number" placeholder="Phone No."
+                                <input type="text" placeholder="전화번호"
                                        class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
                             </div>
                         </div>
@@ -138,22 +89,26 @@
                     <div class="mt-8">
                         <h3 class="text-base text-gray-800 mb-4">Shipping Address</h3>
                         <div class="grid md:grid-cols-2 gap-4">
+
                             <div>
-                                <input type="text" placeholder="Address Line"
+                                <input type="text" id="zonecode" placeholder="우편번호" disabled
+                                       class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
+                            </div>
+                            <button type="button" id="search-btn" class="rounded-md px-6 py-3 w-full font-semibold text-sm tracking-wide bg-transparent hover:bg-gray-100 border border-gray-300 text-gray-800 max-md:order-1">우편번호찾기</button>
+
+                            <div>
+                                <input type="text" id="roadAddress" placeholder="주소" disabled
                                        class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
                             </div>
                             <div>
-                                <input type="text" placeholder="City"
+                                <input type="text" id="roadAddressDetail" placeholder="상세주소"
                                        class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
                             </div>
-                            <div>
-                                <input type="text" placeholder="State"
-                                       class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
-                            </div>
-                            <div>
-                                <input type="text" placeholder="Zip Code"
-                                       class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
-                            </div>
+                        </div>
+
+                        <div class="mt-8 grid md:grid-cols-1 gap-4">
+                            <input type="text" placeholder="배송시 요청사항"
+                                   class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
                         </div>
 
                         <div class="flex gap-4 max-md:flex-col mt-8">
@@ -168,6 +123,42 @@
     </section>
 
     <div th:include="~{/comm/footer}"></div>
+
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+        const elZonecode = document.querySelector("#zonecode");
+        const elRoadAddress = document.querySelector("#roadAddress");
+        const elRoadAddressDetail = document.querySelector("#roadAddressDetail");
+        const elResults = document.querySelectorAll(".el_result");
+        const onClickSearch = () => {
+            console.log(1);
+            new daum.Postcode({
+                oncomplete: function (data) {
+                    console.log(data);
+                    elZonecode.setAttribute("value", data.zonecode);
+                    elRoadAddress.setAttribute("value", data.roadAddress);
+                    // elRoadAddressDetail.setAttribute('value', data.roadAddressDetail)
+                },
+            }).open();
+        };
+        const register = () => {
+            console.log(`우편번호: ${elZonecode.getAttribute("value")}`);
+            console.log(`주소: ${elRoadAddress.getAttribute("value")}`);
+            console.log(`상세주소: ${elRoadAddressDetail.getAttribute("value")}`);
+            elResults[0].innerHTML = elZonecode.getAttribute("value");
+            elResults[1].innerHTML = elRoadAddress.getAttribute("value");
+            elResults[2].innerHTML = elRoadAddressDetail.getAttribute("value");
+        };
+        document.querySelector("#search-btn").addEventListener("click", () => {
+            onClickSearch();
+        });
+        document.querySelector("#register-btn").addEventListener("click", () => {
+            register();
+        });
+        elRoadAddressDetail.addEventListener("change", (e) => {
+            elRoadAddressDetail.setAttribute("value", e.target.value);
+        });
+    </script>
 
 </body>
 
