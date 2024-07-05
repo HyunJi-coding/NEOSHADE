@@ -23,11 +23,7 @@ public class SecureUser implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("=== SecureUser >> loadUserByUsername ====== ");
-        System.out.println(username);
         Users vo_member = usersService.selectEmail(username);
-        System.out.println(username);
-        System.out.println(vo_member.getUsername());
 
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(vo_member.getRole()));

@@ -32,28 +32,16 @@ public class ProductCon {
         return "/product/productlist";
     }
 
-//    @GetMapping("/{productId}")
-//    public String productDetail(@PathVariable Long productId, Model model){
-//        Products product = productsService.selectOne(productId);
-//        String formattedPrice = PriceFormatter.formatPrice(product.getPrice());
-//        model.addAttribute("formattedPrice", formattedPrice);
-//        model.addAttribute("product",product);
-//        return "/product/productview";
-//    }
-
     @GetMapping("/{productId}")
     public String productDetail(@PathVariable Long productId,
                                 @RequestParam(defaultValue = "0") int page,
                                 @RequestParam(defaultValue = "3") int size,
                                 Model model) {
-        // 제품 정보 가져오기
         Products product = productsService.selectOne(productId);
         String formattedPrice = PriceFormatter.formatPrice(product.getPrice());
 
-        // 리뷰 페이지네이션 가져오기
         Page<Reviews> reviewPage = reviewsService.getReviewsByProductId(productId, page, size);
 
-        // 모델에 데이터 추가
         model.addAttribute("product", product);
         model.addAttribute("formattedPrice", formattedPrice);
         model.addAttribute("reviewList", reviewPage.getContent());
