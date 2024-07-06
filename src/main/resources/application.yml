@@ -1,6 +1,11 @@
 server:
   port: 8085
 
+iamport:
+  api:
+    key: 0456330388304875
+    secret: IRAFbtISOQAxccAf9pC9vsQKQEDL5JitgeQ8vtZL2qb6PpuZuU2Kz1x4E470XO1PVNCaAtPWLY904zLS
+
 spring:
   thymeleaf:
     cache: false

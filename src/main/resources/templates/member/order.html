@@ -1,52 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tailwind Starter Template - Nordic Shop: Tailwind Toolbox</title>
-    <meta name="description" content="Free open source Tailwind CSS Store template">
-    <meta name="keywords" content="tailwind,tailwindcss,tailwind css,css,starter template,free template,store template, shop layout, minimal, monochrome, minimalistic, theme, nordic">
-
+    <title>Payment Page</title>
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
-
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
-
     <style>
-        .work-sans {
-            font-family: 'Work Sans', sans-serif;
-        }
-
-        .ordercenter{
-            justify-content: center;
-        }
-
-        .ordermargin{
-            margin-bottom: 150px;
-            margin-top: 50px;
-        }
-
+        .work-sans { font-family: 'Work Sans', sans-serif; }
+        .ordercenter { justify-content: center; }
+        .ordermargin { margin-bottom: 150px; margin-top: 50px; }
     </style>
-
 </head>
-
 <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
-
-    <div th:include="~{/comm/header}"></div>
-    <section class="bg-white py-8">
-
+<div th:include="~{/comm/header}"></div>
+<section class="bg-white py-8">
     <div class="font-[sans-serif] bg-white ordermargin">
         <div class="flex max-sm:flex-col gap-12 max-lg:gap-4 h-full ordercenter">
             <div class="bg-gray-800 sm:sticky sm:top-0 lg:min-w-[370px] sm:min-w-[300px]">
                 <div class="relative h-full">
                     <div class="px-4 py-8 sm:overflow-auto sm:h-[calc(100vh-60px)]">
                         <div class="space-y-4">
-
                             <div th:each="item : ${shoppingCartItems}">
                                 <div class="flex items-start gap-4">
                                     <div class="w-32 h-28 max-lg:w-24 max-lg:h-24 flex p-3 shrink-0 rounded-md">
-                                        <img th:src="${item.getProducts.getImg()}" class="w-full object-contain" />
+                                        <img th:src="${item.getProducts.getImg()}" class="w-full object-contain"/>
                                     </div>
                                     <div class="w-full">
                                         <h3 th:text="${item.getProducts.getName()}" class="text-base text-white"></h3>
@@ -57,109 +35,150 @@
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
-
                     <div class="md:absolute md:left-0 bg-gray-800 w-full p-4">
-                        <h4 class="flex flex-wrap gap-4 text-base text-white">Total <span th:text="${totalPrice + 3000}"> class="ml-auto">$84.00</span></h4>
+                        <h4 class="flex flex-wrap gap-4 text-base text-white">Total <span th:text="${totalPrice + 3000}" class="ml-auto">$84.00</span></h4>
                     </div>
                 </div>
             </div>
-
             <div class="max-w-4xl w-full h-max rounded-md px-4 py-8 sticky top-0">
                 <h2 class="text-2xl font-bold text-gray-800">Complete your order</h2>
-                <form class="mt-8">
+                <form id="order-form" class="mt-8">
                     <div>
                         <h3 class="text-base text-gray-800 mb-4">Personal Details</h3>
                         <div class="grid md:grid-cols-2 gap-4">
                             <div>
-                                <input type="text" placeholder="이름"
-                                       class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
+                                <input type="text" id="recipientName" name="recipientName" placeholder="이름"
+                                       class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600"/>
                             </div>
-
                             <div>
-                                <input type="text" placeholder="전화번호"
-                                       class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
+                                <input type="text" id="phoneNumber" name="phoneNumber" placeholder="전화번호"
+                                       class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600"/>
                             </div>
                         </div>
                     </div>
-
                     <div class="mt-8">
                         <h3 class="text-base text-gray-800 mb-4">Shipping Address</h3>
                         <div class="grid md:grid-cols-2 gap-4">
-
                             <div>
-                                <input type="text" id="zonecode" placeholder="우편번호" disabled
-                                       class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
+                                <input type="text" id="zonecode" name="postalCode" placeholder="우편번호" disabled
+                                       class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600"/>
                             </div>
                             <button type="button" id="search-btn" class="rounded-md px-6 py-3 w-full font-semibold text-sm tracking-wide bg-transparent hover:bg-gray-100 border border-gray-300 text-gray-800 max-md:order-1">우편번호찾기</button>
-
                             <div>
-                                <input type="text" id="roadAddress" placeholder="주소" disabled
-                                       class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
+                                <input type="text" id="roadAddress" name="address" placeholder="주소" disabled
+                                       class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600"/>
                             </div>
                             <div>
-                                <input type="text" id="roadAddressDetail" placeholder="상세주소"
-                                       class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
+                                <input type="text" id="roadAddressDetail" name="detailedAddress" placeholder="상세주소"
+                                       class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600"/>
                             </div>
                         </div>
-
                         <div class="mt-8 grid md:grid-cols-1 gap-4">
-                            <input type="text" placeholder="배송시 요청사항"
-                                   class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
+                            <input type="text" id="deliveryRequest" name="deliveryRequest" placeholder="배송시 요청사항"
+                                   class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600"/>
                         </div>
-
                         <div class="flex gap-4 max-md:flex-col mt-8">
                             <button type="button" class="rounded-md px-6 py-3 w-full font-semibold text-sm tracking-wide bg-transparent hover:bg-gray-100 border border-gray-300 text-gray-800 max-md:order-1">Cancel</button>
-                            <button type="button" class="rounded-md px-6 py-3 w-full font-semibold text-sm tracking-wide text-white bg-gray-600 hover:bg-gray-700 focus:outline-none">Complete Purchase</button>
+                            <button type="button" onclick="requestPay()" class="rounded-md px-6 py-3 w-full font-semibold text-sm tracking-wide text-white bg-gray-600 hover:bg-gray-700 focus:outline-none">Complete Purchase</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    </section>
+</section>
+<div th:include="~{/comm/footer}"></div>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+<script>
+    const elZonecode = document.querySelector("#zonecode");
+    const elRoadAddress = document.querySelector("#roadAddress");
+    const elRoadAddressDetail = document.querySelector("#roadAddressDetail");
+    const elResults = document.querySelectorAll(".el_result");
+    const onClickSearch = () => {
+        new daum.Postcode({
+            oncomplete: function (data) {
+                elZonecode.value = data.zonecode;
+                elRoadAddress.value = data.roadAddress;
+            },
+        }).open();
+    };
+    document.querySelector("#search-btn").addEventListener("click", onClickSearch);
+    elRoadAddressDetail.addEventListener("change", (e) => {
+        elRoadAddressDetail.value = e.target.value;
+    });
 
-    <div th:include="~{/comm/footer}"></div>
+    function requestPay() {
+        const IMP = window.IMP;
+        IMP.init('imp01726180'); // 'iamport'의 식별코드를 설정
 
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script>
-        const elZonecode = document.querySelector("#zonecode");
-        const elRoadAddress = document.querySelector("#roadAddress");
-        const elRoadAddressDetail = document.querySelector("#roadAddressDetail");
-        const elResults = document.querySelectorAll(".el_result");
-        const onClickSearch = () => {
-            console.log(1);
-            new daum.Postcode({
-                oncomplete: function (data) {
-                    console.log(data);
-                    elZonecode.setAttribute("value", data.zonecode);
-                    elRoadAddress.setAttribute("value", data.roadAddress);
-                    // elRoadAddressDetail.setAttribute('value', data.roadAddressDetail)
-                },
-            }).open();
+        const requestData = {
+            recipientName: document.getElementById('recipientName').value,
+            phoneNumber: document.getElementById('phoneNumber').value,
+            postalCode: document.getElementById('zonecode').value,
+            address: document.getElementById('roadAddress').value,
+            detailedAddress: document.getElementById('roadAddressDetail').value,
+            deliveryRequest: document.getElementById('deliveryRequest').value
         };
-        const register = () => {
-            console.log(`우편번호: ${elZonecode.getAttribute("value")}`);
-            console.log(`주소: ${elRoadAddress.getAttribute("value")}`);
-            console.log(`상세주소: ${elRoadAddressDetail.getAttribute("value")}`);
-            elResults[0].innerHTML = elZonecode.getAttribute("value");
-            elResults[1].innerHTML = elRoadAddress.getAttribute("value");
-            elResults[2].innerHTML = elRoadAddressDetail.getAttribute("value");
-        };
-        document.querySelector("#search-btn").addEventListener("click", () => {
-            onClickSearch();
-        });
-        document.querySelector("#register-btn").addEventListener("click", () => {
-            register();
-        });
-        elRoadAddressDetail.addEventListener("change", (e) => {
-            elRoadAddressDetail.setAttribute("value", e.target.value);
-        });
-    </script>
 
+        // 유효성 검사 추가
+        if (!requestData.recipientName || !requestData.phoneNumber || !requestData.postalCode || !requestData.address || !requestData.detailedAddress) {
+            alert('모든 필드를 채워주세요.');
+            return;
+        }
+
+        console.log('requestData', requestData);
+
+
+        IMP.request_pay({
+            pg: 'kcp',
+            pay_method: 'card',
+            merchant_uid: 'merchant_' + new Date().getTime(),
+            name: 'Order Payment',
+            amount: 100, // 결제 금액 설정
+            buyer_email: 'buyer@example.com',
+            buyer_name: requestData.recipientName,
+            buyer_tel: requestData.phoneNumber,
+            buyer_addr: requestData.address,
+            buyer_postcode: requestData.postalCode
+        }, function (rsp) {
+            console.log('rsp', rsp); // rsp 객체 확인
+
+            if (rsp.success) {
+                console.log('imp_uid:', rsp.imp_uid); // imp_uid 값 확인
+                console.log('merchant_uid:', rsp.merchant_uid); // merchant_uid 값 확인
+
+                fetch('/api/payments/complete', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        impUid: rsp.imp_uid, // 서버에서 수신하는 필드 이름과 일치시킴
+                        merchantUid: rsp.merchant_uid, // 여기에 변수로 저장한 merchant_uid 값을 사용
+                        recipientName: requestData.recipientName,
+                        phoneNumber: requestData.phoneNumber,
+                        postalCode: requestData.postalCode,
+                        address: requestData.address,
+                        detailedAddress: requestData.detailedAddress,
+                        deliveryRequest: requestData.deliveryRequest
+                    })
+                }).then(response => response.json())
+                    .then(data => {
+                        console.log(data); // 응답 데이터 확인
+                        if (data.success) {
+                            alert('결제가 완료되었습니다.');
+                        } else {
+                            alert('결제 실패: ' + data.error);
+                        }
+                    });
+            } else {
+                alert('결제 실패: ' + rsp.error_msg);
+            }
+        });
+    }
+</script>
 </body>
-
 </html>

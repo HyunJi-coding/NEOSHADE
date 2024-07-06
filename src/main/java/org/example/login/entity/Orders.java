@@ -1,9 +1,6 @@
 package org.example.login.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -31,17 +28,17 @@ public class Orders {
     private String deliveryRequest;
     private String paymentStatus;
     private double total;
+    private String impUid;
+    private String merchantUid;
 
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @ToString.Exclude
     private List<OrderItems> orderItems;
 
     @PrePersist
     protected void onCreate() {
-        if (createdAt == null) {
-            createdAt = LocalDateTime.now();
-        }
         if (paymentStatus == null) {
             paymentStatus = "PENDING";
         }

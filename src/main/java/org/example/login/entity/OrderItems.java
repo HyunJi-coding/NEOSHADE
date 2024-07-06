@@ -1,9 +1,6 @@
 package org.example.login.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -19,12 +16,14 @@ public class OrderItems {
 
     @ManyToOne
     @JoinColumn(name = "orderId", referencedColumnName = "orderId")
+    @ToString.Exclude
     private Orders order;
 
     @ManyToOne
     @JoinColumn(name = "productId", referencedColumnName = "productId")
     private Products product;
 
-    private int quantity;
+    private long quantity;
     private double price;
+
 }

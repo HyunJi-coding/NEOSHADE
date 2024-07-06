@@ -1,7 +1,10 @@
 package org.example.login.dto;
 
+import lombok.Data;
+
 import java.util.List;
 
+@Data
 public class OrderRequest {
     private String recipientName;
     private String phoneNumber;
@@ -9,5 +12,7 @@ public class OrderRequest {
     private String detailedAddress;
     private String postalCode;
     private String deliveryRequest;
+    private String impUid;
+    private String merchantUid;
     private List<OrderItemRequest> items;
 }
