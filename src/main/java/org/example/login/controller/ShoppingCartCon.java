@@ -1,5 +1,7 @@
 package org.example.login.controller;
 
+import org.example.login.dto.Request.ShoppingCartRequest;
+import org.example.login.dto.Response.ShoppingCartResponse;
 import org.example.login.entity.ShoppingCart;
 import org.example.login.service.ShoppingCartService;
 import org.example.login.util.PriceFormatter;
@@ -13,9 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/api/shopping-cart")
+@RequestMapping("/shopping-cart")
 public class ShoppingCartCon {
     @Autowired
     ShoppingCartService shoppingCartService;
@@ -26,19 +29,22 @@ public class ShoppingCartCon {
         Long userId = (Long) session.getAttribute("ss_member_id");
 
         if (userId == null) {
-            return "redirect:/secure/login";
+            return "redirect:/users/login";
         }
 
         List<ShoppingCart> shoppingCart = shoppingCartService.findByUsersUserId(userId);
+        List<ShoppingCartResponse> shoppingCartResponseList = shoppingCart.stream()
+                .map(ShoppingCartResponse::fromEntity)
+                .collect(Collectors.toList());
+
         long totalPrice = shoppingCart.stream()
                 .mapToLong(item -> item.getQuantity() * item.getProducts().getPrice())
                 .sum();
 
-        model.addAttribute("shoppingCartItems", shoppingCart);
+        model.addAttribute("shoppingCartItems", shoppingCartResponseList);
         model.addAttribute("totalPrice", totalPrice);
         return "/member/shoppingcart";
     }
-
 
     @PostMapping("/add")
     public ResponseEntity<String> addToShoppingCart(HttpServletRequest request, @RequestParam long productId) {

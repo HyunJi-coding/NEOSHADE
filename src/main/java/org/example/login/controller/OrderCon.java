@@ -1,5 +1,6 @@
 package org.example.login.controller;
 
+import org.example.login.dto.Response.ShoppingCartResponse;
 import org.example.login.entity.ShoppingCart;
 import org.example.login.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/order")
@@ -28,11 +30,15 @@ public class OrderCon {
         }
 
         List<ShoppingCart> shoppingCart = shoppingCartService.findByUsersUserId(userId);
+        List<ShoppingCartResponse> shoppingCartResponseList = shoppingCart.stream()
+                .map(ShoppingCartResponse::fromEntity)
+                .collect(Collectors.toList());
+
         long totalPrice = shoppingCart.stream()
                 .mapToLong(item -> item.getQuantity() * item.getProducts().getPrice())
                 .sum();
 
-        model.addAttribute("shoppingCartItems", shoppingCart);
+        model.addAttribute("shoppingCartItems", shoppingCartResponseList);
         model.addAttribute("totalPrice", totalPrice);
         return "/member/order";
     }
