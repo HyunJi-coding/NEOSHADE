@@ -6,7 +6,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
-// 단방향, 양방향 암호화
 public class Cm_encryp {
     public static String encryptSha256(String value) {
 

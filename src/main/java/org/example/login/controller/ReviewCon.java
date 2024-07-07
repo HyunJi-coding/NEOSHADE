@@ -42,13 +42,11 @@ public class ReviewCon {
         return "/review/list";
     }
 
-
     @PostMapping("/add")
     public ResponseEntity<String> addReview(HttpServletRequest request, @RequestParam long productId,
                                             @RequestParam String title,@RequestParam String comment,
                                             @RequestParam long rating) {
         HttpSession session = request.getSession();
-        System.out.println("Add Review - Session ID: " + session.getId());
         Long userId = (Long) session.getAttribute("ss_member_id");
 
         if (userId == null) {
