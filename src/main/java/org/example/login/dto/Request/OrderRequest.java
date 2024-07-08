@@ -20,5 +20,6 @@ public class OrderRequest {
     private String deliveryRequest;
     private String impUid;
     private String merchantUid;
+    private double total;
     private List<OrderItemRequest> items;
 }

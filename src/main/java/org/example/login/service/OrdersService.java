@@ -1,18 +1,14 @@
 package org.example.login.service;
 
 import org.example.login.dto.Request.OrderRequest;
-import org.example.login.entity.OrderItems;
-import org.example.login.entity.Orders;
-import org.example.login.entity.ShoppingCart;
-import org.example.login.entity.Users;
-import org.example.login.repository.OrderItemsRepo;
-import org.example.login.repository.OrdersRepo;
-import org.example.login.repository.ShoppingCartRepo;
-import org.example.login.repository.UsersRepo;
+import org.example.login.dto.Request.PaymentsRequest;
+import org.example.login.entity.*;
+import org.example.login.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +26,11 @@ public class OrdersService {
     @Autowired
     private OrderItemsRepo orderItemsRepo;
 
+    @Autowired
+    private PaymentsRepo paymentsRepo;
+
     @Transactional
-    public Orders processOrder(OrderRequest orderRequest, long userId) {
+    public Orders processOrder(OrderRequest orderRequest, PaymentsRequest paymentRequest, long userId) {
         Users user = usersRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
 
         List<ShoppingCart> cartItems = shoppingCartRepo.findByUsersUserId(userId);
@@ -56,6 +55,7 @@ public class OrdersService {
                 .deliveryRequest(orderRequest.getDeliveryRequest())
                 .impUid(orderRequest.getImpUid())
                 .merchantUid(orderRequest.getMerchantUid())
+                .total(orderRequest.getTotal())
                 .orderItems(orderItems)
                 .build();
 
@@ -65,6 +65,15 @@ public class OrdersService {
             item.setOrder(order);
             orderItemsRepo.save(item);
         }
+
+        Payments payment = Payments.builder()
+                .order(order)
+                .paymentMethod(paymentRequest.getPaymentMethod())
+                .paymentAmount(order.getTotal())
+                .createdAt(LocalDateTime.now())
+                .build();
+
+        paymentsRepo.save(payment);
 
         shoppingCartRepo.deleteAll(cartItems);
 
