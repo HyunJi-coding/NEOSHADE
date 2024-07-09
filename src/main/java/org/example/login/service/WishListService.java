@@ -28,10 +28,9 @@ public class WishListService {
         this.usersRepo = usersRepo;
     }
 
-    public WishListResponse addWishList(Long userId, WishListRequest WishListRequest) {
-        Products product = productsRepo.findById(WishListRequest.getProductId()).get();
-
+    public WishListResponse addWishList(Long userId, long productId) {
         Users user = usersRepo.findById(userId).get();
+        Products product = productsRepo.findById(productId).get();
 
 
         WishList wishList = WishList.builder()
