@@ -11,4 +11,5 @@ import java.util.List;
 @Repository
 public interface OrdersRepo extends JpaRepository<Orders, Long> {
     List<Orders> findByUsersUserId(long userId);
+    long countByUsersUserIdAndOrderStatus(Long userId, String status);
 }

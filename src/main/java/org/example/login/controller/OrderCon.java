@@ -1,7 +1,10 @@
 package org.example.login.controller;
 
+import org.example.login.dto.Response.OrdersResponse;
 import org.example.login.dto.Response.ShoppingCartResponse;
+import org.example.login.entity.Orders;
 import org.example.login.entity.ShoppingCart;
+import org.example.login.service.OrdersService;
 import org.example.login.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,13 +18,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/order")
 public class OrderCon {
     @Autowired
     ShoppingCartService shoppingCartService;
+    @Autowired
+    OrdersService ordersService;
 
-    @GetMapping
-    public String getUserShoppingCart(HttpServletRequest request, Model model) {
+    @GetMapping("/order")
+    public String getOrderList(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute("ss_member_id");
 
@@ -42,4 +46,44 @@ public class OrderCon {
         model.addAttribute("totalPrice", totalPrice);
         return "/member/order";
     }
+
+    @GetMapping("/order/list")
+    public String getUserOrderList(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        Long userId = (Long) session.getAttribute("ss_member_id");
+
+        if (userId == null) {
+            return "redirect:/secure/login";
+        }
+
+        List<Orders> orders = ordersService.findByUsersUserId(userId);
+        List<OrdersResponse> ordersResponseList = orders.stream()
+                .map(OrdersResponse::fromEntity)
+                .collect(Collectors.toList());
+
+        model.addAttribute("orders", ordersResponseList);
+        return "/member/orderlist";
+    }
+
+    @GetMapping("/mypage")
+    public String getOrderStatus(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        Long userId = (Long) session.getAttribute("ss_member_id");
+
+        if (userId == null) {
+            return "redirect:/secure/login";
+        }
+
+        long preparingCount = ordersService.countByOrderStatus(userId, "PREPARING");
+        long shippingCount = ordersService.countByOrderStatus(userId, "SHIPPING");
+        long deliveredCount = ordersService.countByOrderStatus(userId, "DELIVERED");
+
+        model.addAttribute("preparingCount", preparingCount);
+        model.addAttribute("shippingCount", shippingCount);
+        model.addAttribute("deliveredCount", deliveredCount);
+
+        return "/member/mypage";
+    }
+
+
 }

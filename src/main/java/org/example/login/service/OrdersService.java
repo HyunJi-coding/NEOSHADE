@@ -79,8 +79,11 @@ public class OrdersService {
 
         return order;
     }
-
     public List<Orders> findByUsersUserId(long userId) {
         return orderRepo.findByUsersUserId(userId);
+    }
+
+    public long countByOrderStatus(Long userId, String status) {
+        return orderRepo.countByUsersUserIdAndOrderStatus(userId, status);
     }
 }
