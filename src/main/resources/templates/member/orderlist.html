@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tailwind Starter Template - Nordic Shop: Tailwind Toolbox</title>
+    <meta name="description" content="Free open source Tailwind CSS Store template">
+    <meta name="keywords" content="tailwind,tailwindcss,tailwind css,css,starter template,free template,store template, shop layout, minimal, monochrome, minimalistic, theme, nordic">
+
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
+
+</head>
+<body>
+<div th:include="~{/comm/header}"></div>
+
+<section class="bg-white py-8">
+    <div class="container py-8 px-6 mx-auto">
+        <table class="mt-6 w-full border-collapse divide-y">
+            <thead class="whitespace-nowrap text-left">
+            <tr>
+
+                <th class="text-base text-gray-800 p-4">Order ID</th>
+                <th class="text-base text-gray-800 p-4">Recipient Name</th>
+                <th class="text-base text-gray-800 p-4">Phone Number</th>
+                <th class="text-base text-gray-800 p-4">Address</th>
+                <th class="text-base text-gray-800 p-4">Order Status</th>
+                <th class="text-base text-gray-800 p-4">Total</th>
+                <th class="text-base text-gray-800 p-4">Created At</th>
+                <th class="text-base text-gray-800 p-4">Items</th>
+            </tr>
+            </thead>
+
+            <tbody class="whitespace-nowrap divide-y">
+            <tr th:each="order : ${orders}">
+                <td th:text="${order.orderId}"></td>
+                <td th:text="${order.recipientName}"></td>
+                <td th:text="${order.phoneNumber}"></td>
+                <td th:text="${order.address}"></td>
+                <td th:text="${order.orderStatus}"></td>
+                <td th:text="${order.total}"></td>
+                <td th:text="${order.createdAt}"></td>
+                <td>
+                    <table class="mt-6 w-6 border-collapse divide-y">
+
+                        <tbody class="whitespace-nowrap divide-y">
+                    <tr th:each="item : ${order.items}">
+                        <td class="p-4">
+                            <div class="flex items-center gap-4 w-max">
+                                <div class="h-32 shrink-0">
+                                    <img th:src="${item.getProductImg()}" class="w-full h-full object-contain rounded-lg" />
+                                </div>
+                                <div>
+                                    <p class="text-base font-bold text-gray-800" th:text="${item.productName}"></p>
+                                    <p class="text-base font-semibold text-gray-300 text-sm" th:text="${item.quantity}+'개'"></p>
+                                    <p class="text-base font-semibold text-gray-300 text-sm" th:text="${item.price}*${item.quantity}+'원'"></p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</section>
+<div th:replace="~{/comm/footer}"></div>
+
+</body>
+
+</html>
