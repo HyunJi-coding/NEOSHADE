@@ -3,7 +3,6 @@ package org.example.login.controller;
 import org.example.login.entity.Reviews;
 import org.example.login.service.ReviewsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -31,7 +30,7 @@ public class ReviewCon {
 
         List<Reviews> reviews = reviewsService.findByUsersUserId(userId);
         model.addAttribute("reviews", reviews);
-        return "/review/reviewlist";
+        return "/member/reviewlist";
     }
 
 

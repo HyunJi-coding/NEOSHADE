@@ -11,5 +11,5 @@ import java.util.Optional;
 @Repository
 public interface WishListRepo extends JpaRepository<WishList,Long> {
     List<WishList> findByUsersUserId(Long userId);
-    WishList findByWishlistIdAndUsersUserId(Long id, Long userId);
+    WishList findByProductsProductIdAndUsersUserId(Long productid, Long userId);
 }

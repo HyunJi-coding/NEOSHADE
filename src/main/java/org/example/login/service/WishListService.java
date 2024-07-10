@@ -11,6 +11,7 @@ import org.example.login.repository.WishListRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,7 +29,7 @@ public class WishListService {
         this.usersRepo = usersRepo;
     }
 
-    public WishListResponse addWishList(Long userId, long productId) {
+    public WishListResponse addWishList(Long userId, Long productId) {
         Users user = usersRepo.findById(userId).get();
         Products product = productsRepo.findById(productId).get();
 
@@ -51,8 +52,8 @@ public class WishListService {
                 .collect(Collectors.toList());
     }
 
-    public void removeWishList(Long userId, Long wishListItemId) {
-        WishList wishList = wishListRepo.findByWishlistIdAndUsersUserId(wishListItemId, userId);
-        wishListRepo.delete(wishList);
+    @Transactional
+    public void deleteWishList(Long wishlistId) {
+        wishListRepo.deleteById(wishlistId);
     }
 }

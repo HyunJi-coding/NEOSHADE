@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 public class WishListResponse {
+    private Long wishlistId;
     private String productName;
     private String category;
     private String productImg;
@@ -18,6 +19,7 @@ public class WishListResponse {
 
     public static WishListResponse fromEntity(WishList wishList) {
         return WishListResponse.builder()
+                .wishlistId(wishList.getWishlistId())
                 .productName(wishList.getProducts().getName())
                 .category(wishList.getProducts().getCategories().getName())
                 .createdAt(wishList.getCreatedAt())

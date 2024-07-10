@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tailwind Starter Template - Nordic Shop: Tailwind Toolbox</title>
+    <meta name="description" content="Free open source Tailwind CSS Store template">
+    <meta name="keywords" content="tailwind,tailwindcss,tailwind css,css,starter template,free template,store template, shop layout, minimal, monochrome, minimalistic, theme, nordic">
+
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div th:include="~{/comm/header}"></div>
+
+    <section class="bg-white py-8">
+
+        <div class="container py-8 px-6 mx-auto">
+
+            <table class="mt-6 w-full border-collapse divide-y">
+                <thead class="whitespace-nowrap text-left">
+                <tr>
+                    <th class="text-base text-gray-800 p-4">Description</th>
+                    <th class="text-base text-gray-800 p-4">Price</th>
+                </tr>
+                </thead>
+
+                <tbody class="whitespace-nowrap divide-y">
+                <tr th:each="item : ${wishList}">
+                    <td class="p-4">
+                        <div class="flex items-center gap-4 w-max">
+                            <div class="h-32 shrink-0">
+                                <img th:src="${item.getProductImg()}" class="w-full h-full object-contain rounded-lg" />
+                            </div>
+                            <div>
+                                <p class="text-base font-bold text-gray-800" th:text="${item.getProductName()}"></p>
+                                <p class="text-base font-semibold text-gray-300 text-sm" th:text="${item.getCategory()}"></p>
+
+                                <button type="button" class="removeButton mt-2 font-semibold text-red-400 text-sm"
+                                        th:data-wishlistId="${item.getWishlistId()}">
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+
+                    <td class="p-4">
+                        <h4 class="text-base font-bold text-gray-800" th:text="${item.getPrice()}"></h4>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+
+    </section>
+    <div th:replace="~{/comm/footer}"></div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        document.querySelectorAll('.removeButton').forEach(button => {
+            button.addEventListener('click', function() {
+                var wishListId = this.getAttribute('data-wishlistId');
+
+                fetch(`/api/wishlist/delete?wishListId=${wishListId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(data => {
+                        console.log('WishList item removed successfully:', data);
+                        this.closest('tr').remove();
+                    })
+
+            });
+        });
+    </script>
+
+</body>
+
+</html>
