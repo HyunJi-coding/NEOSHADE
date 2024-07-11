@@ -28,7 +28,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/", "/home","/comm/**","/img/**","/css/**","/js/**","/docs/**","/secure/**","/users/**", "/products/**", "/api/**").permitAll()
-//                .antMatchers("/study/**").hasAnyRole("USER","ADMIN")
                 .antMatchers("/setting/**").hasRole("ADMIN")
                 .anyRequest().authenticated();
 
@@ -40,6 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
 
         http.logout()
+                .logoutUrl("/users/logout")
                 .logoutSuccessHandler(handlerLogoutSucess)
                 .permitAll();
 
