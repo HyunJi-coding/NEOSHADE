@@ -47,7 +47,7 @@
                         <div class="max-w-xl">
                             <div>
                                 <h2 th:text="${product.name}" class="text-2xl font-extrabold text-gray-800"></h2>
-                                <p th:text="${product.categories.name}" class="text-sm text-gray-600 mt-2">Well-Versed Commerce</p>
+                                <p th:text="${product.categories.name}" class="text-sm text-gray-600 mt-2"></p>
                             </div>
 
                             <div class="flex space-x-1 mt-4">
@@ -107,7 +107,7 @@
                     </div>
                     <hr class="my-6" />
                     <div class="flex flex-wrap items-center gap-3">
-                        <p class="text-xs text-gray-400" th:text="'BY ' + ${review.getUsers().getUsername()}">BY JOHN DOE</p>
+                        <p class="text-xs text-gray-400" th:text="'BY ' + ${review.getUsername()}"></p>
                     </div>
                 </div>
             </div>
@@ -135,7 +135,7 @@
         document.getElementById('addToCartButton').addEventListener('click', function() {
             var productId = this.getAttribute('data-product-id');
 
-            fetch('/api/shopping-cart/add', {
+            fetch('/shopping-cart/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',

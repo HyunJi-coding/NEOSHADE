@@ -56,10 +56,10 @@
                     <td class="p-4">
                         <div class="flex items-center gap-4 w-max">
                             <div class="h-32 shrink-0">
-                                <img th:src="${item.getProducts.getImg()}" class="w-full h-full object-contain rounded-lg" />
+                                <img th:src="${item.getProductImg()}" class="w-full h-full object-contain rounded-lg" />
                             </div>
                             <div>
-                                <p class="text-base font-bold text-gray-800" th:text="${item.getProducts.getName()}">Black T-Shirt</p>
+                                <p class="text-base font-bold text-gray-800" th:text="${item.getProductName()}"></p>
                                 <button type="button" class="mt-2 font-semibold text-red-400 text-sm">
                                     Remove
                                 </button>
@@ -82,7 +82,7 @@
                         </div>
                     </td>
                     <td class="p-4">
-                        <h4 class="text-base font-bold text-gray-800" th:text="${item.getQuantity() * item.getProducts().getPrice()}"></h4>
+                        <h4 class="text-base font-bold text-gray-800" th:text="${item.getQuantity() * item.getPrice()}"></h4>
                     </td>
                 </tr>
 
