@@ -12,9 +12,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UsersResponse {
-    private long userId;
     private String username;
-    private String email;
-    private String role;
-    private LocalDateTime createdAt;
+    private String password;
+    private String gender;
+    private String birthday;
 }
