@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,17 +19,6 @@ import java.util.stream.Collectors;
 public class UsersCon {
     @Autowired
     private UsersService usersService;
-
-    @GetMapping("/list")
-    public String userlist(Model model) {
-        List<UsersResponse> usersList = usersService.selectAll()
-                .stream()
-                .map(this::convertToUserResponse)
-                .collect(Collectors.toList());
-
-        model.addAttribute("usersList", usersList);
-        return "/member/memberlist";
-    }
 
     @GetMapping("/insert")
     public String insert() {
@@ -47,20 +38,34 @@ public class UsersCon {
         return "/login/login";
     }
 
-    private UsersResponse convertToUserResponse(Users user) {
-        return UsersResponse.builder()
-                .userId(user.getUserId())
-                .username(user.getUsername())
-                .email(user.getEmail())
-                .role(user.getRole())
-                .createdAt(user.getCreatedAt())
-                .build();
+    @GetMapping("/update")
+    public String showEditForm(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        Long userId = (Long) session.getAttribute("ss_member_id");
+
+
+        Users users = usersService.getUserById(userId);
+        model.addAttribute("users", users);
+
+        return "/member/userupdate";
     }
+
+    @PostMapping("/update_exe")
+    public String updateUser(HttpServletRequest request, @RequestParam String password, @RequestParam String gender, @RequestParam String birthDay) {
+        HttpSession session = request.getSession();
+        Long userId = (Long) session.getAttribute("ss_member_id");
+        usersService.updateUser(userId, password, gender, birthDay);
+        return "redirect:/users/" + userId;
+    }
+
 
     private Users convertToUser(UsersRequest userRequest) {
         return Users.builder()
+                .username(userRequest.getUsername())
                 .email(userRequest.getEmail())
                 .password(userRequest.getPassword())
+                .gender(userRequest.getGender())
+                .birthDay(userRequest.getBirthDay())
                 .build();
     }
 }

@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,6 +25,10 @@ public class Users {
     private String email;
 
     private String password;
+
+    private String gender;
+
+    private String birthDay;
 
     private String role;
 
