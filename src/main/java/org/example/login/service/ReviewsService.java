@@ -41,6 +41,9 @@ public class ReviewsService {
         return reviewsRepo.findByProductsProductId(pageable, productId);
     }
 
+    public boolean hasUserReviewedProduct(Long userId, Long productId) {
+        return reviewsRepo.existsByUsersUserIdAndProductsProductId(userId, productId);
+    }
 
     public void insert(Reviews reviews, long userId, long productId) {
         Users user = usersRepo.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));

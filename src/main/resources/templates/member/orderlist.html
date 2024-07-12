@@ -15,63 +15,92 @@
 
 </head>
 <body>
-<div th:include="~{/comm/header}"></div>
+    <div th:include="~{/comm/header}"></div>
 
-<section class="bg-white py-8">
-    <div class="container py-8 px-6 mx-auto">
-        <table class="mt-6 w-full border-collapse divide-y">
-            <thead class="whitespace-nowrap text-left">
-            <tr>
+    <section class="bg-white py-8">
+        <div class="container py-8 px-6 mx-auto">
+            <table class="mt-6 w-full border-collapse divide-y">
+                <thead class="whitespace-nowrap text-left">
+                <tr>
+                    <th class="text-base text-gray-800 p-4">Order ID</th>
+                    <th class="text-base text-gray-800 p-4">Recipient Name</th>
+                    <th class="text-base text-gray-800 p-4">Phone Number</th>
+                    <th class="text-base text-gray-800 p-4">Address</th>
+                    <th class="text-base text-gray-800 p-4">Order Status</th>
+                    <th class="text-base text-gray-800 p-4">Total</th>
+                    <th class="text-base text-gray-800 p-4">Created At</th>
+                    <th class="text-base text-gray-800 p-4">Items</th>
+                </tr>
+                </thead>
 
-                <th class="text-base text-gray-800 p-4">Order ID</th>
-                <th class="text-base text-gray-800 p-4">Recipient Name</th>
-                <th class="text-base text-gray-800 p-4">Phone Number</th>
-                <th class="text-base text-gray-800 p-4">Address</th>
-                <th class="text-base text-gray-800 p-4">Order Status</th>
-                <th class="text-base text-gray-800 p-4">Total</th>
-                <th class="text-base text-gray-800 p-4">Created At</th>
-                <th class="text-base text-gray-800 p-4">Items</th>
-            </tr>
-            </thead>
+                <tbody class="whitespace-nowrap divide-y">
+                <tr th:each="order : ${orders}">
+                    <td>
+                        <div class="grid place-items-center" th:text="${order.orderId}"></div>
+                        <div class="font-[sans-serif] flex flex-col text-center">
+                            <button type="button"
+                                    class="px-5 py-0.5 rounded-lg text-white text-sm tracking-wider font-medium border border-current outline-none bg-gray-400 disabled:cursor-not-allowed"
+                                    >주문취소</button>
 
-            <tbody class="whitespace-nowrap divide-y">
-            <tr th:each="order : ${orders}">
-                <td th:text="${order.orderId}"></td>
-                <td th:text="${order.recipientName}"></td>
-                <td th:text="${order.phoneNumber}"></td>
-                <td th:text="${order.address}"></td>
-                <td th:text="${order.orderStatus}"></td>
-                <td th:text="${order.total}"></td>
-                <td th:text="${order.createdAt}"></td>
-                <td>
-                    <table class="mt-6 w-6 border-collapse divide-y">
-
-                        <tbody class="whitespace-nowrap divide-y">
-                    <tr th:each="item : ${order.items}">
-                        <td class="p-4">
-                            <div class="flex items-center gap-4 w-max">
-                                <div class="h-32 shrink-0">
-                                    <img th:src="${item.getProductImg()}" class="w-full h-full object-contain rounded-lg" />
-                                </div>
-                                <div>
-                                    <p class="text-base font-bold text-gray-800" th:text="${item.productName}"></p>
-                                    <p class="text-base font-semibold text-gray-300 text-sm" th:text="${item.quantity}+'개'"></p>
-                                    <p class="text-base font-semibold text-gray-300 text-sm" th:text="${item.price}*${item.quantity}+'원'"></p>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-</section>
+                        </div>
+                    </td>
+                    <td>
+                        <p class="grid place-items-center" th:text="${order.recipientName}"></p>
+                    </td>
+                    <td>
+                        <p class="grid place-items-center" th:text="${order.phoneNumber}"></p>
+                    </td>
+                    <td>
+                        <p class="grid place-items-center" th:text="${order.address}"></p>
+                    </td>
+                    <td>
+                        <p class="grid place-items-center" th:text="${order.orderStatus}"></p>
+                    </td>
+                    <td>
+                        <p class="grid place-items-center" th:text="${order.total}"></p>
+                    </td>
+                    <td>
+                        <p th:text="${order.createdAt}"></p>
+                    </td>
+                    <td>
+                        <table class="mt-6 w-6 border-collapse divide-y">
+                            <tbody class="whitespace-nowrap divide-y">
+                            <tr th:each="item : ${order.items}">
+                                <td class="p-4">
+                                    <div class="flex items-center gap-4 w-max">
+                                        <div class="h-32 shrink-0">
+                                            <img th:src="${item.productImg}"
+                                                 class="w-full h-full object-contain rounded-lg" />
+                                        </div>
+                                        <div>
+                                            <p class="text-base font-bold text-gray-800"
+                                               th:text="${item.productName}"></p>
+                                            <p class="text-base font-semibold text-gray-300 text-sm"
+                                               th:text="${item.quantity}+'개'"></p>
+                                            <p class="text-base font-semibold text-gray-300 text-sm"
+                                               th:text="${item.price}*${item.quantity}+'원'"></p>
+                                            <a th:href="@{/reviews/write/{id}(id=${item.productId})}">
+                                                <button type="button"
+                                                        class="px-5 py-0.5 rounded-lg text-white text-sm tracking-wider font-medium border border-current outline-none"
+                                                        th:classappend="${item.reviewed ? 'bg-gray-400 disabled:cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'}"
+                                                        th:disabled="${item.reviewed}">
+                                                    <span th:if="${item.reviewed}">작성완료</span>
+                                                    <span th:unless="${item.reviewed}">리뷰작성</span>
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
 <div th:replace="~{/comm/footer}"></div>
-
 </body>
 
 </html>
