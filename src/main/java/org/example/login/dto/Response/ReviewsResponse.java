@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.login.entity.Reviews;
+import org.example.login.entity.WishList;
 
 import java.time.LocalDateTime;
 
@@ -12,11 +14,25 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReviewsResponse {
-    private long reviewId;
+    private Long reviewId;
     private String title;
     private String comment;
-    private long rating;
     private String username;
-    private long productId;
+    private String productname;
+    private String productImg;
+    private String category;
     private LocalDateTime createdAt;
+
+    public static ReviewsResponse fromEntity(Reviews review) {
+        return ReviewsResponse.builder()
+                .reviewId(review.getReviewId())
+                .title(review.getTitle())
+                .comment(review.getComment())
+                .username(review.getUsers().getUsername())
+                .productname(review.getProducts().getName())
+                .productImg(review.getProducts().getImg())
+                .category(review.getProducts().getCategories().getName())
+                .createdAt(review.getCreatedAt())
+                .build();
+    }
 }

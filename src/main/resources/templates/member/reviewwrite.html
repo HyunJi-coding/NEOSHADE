@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
+    <style>
+        .work-sans {
+            font-family: 'Work Sans', sans-serif;
+        }
+        .ordercenter {
+            justify-content: center;
+        }
+        .ordermargin {
+            margin-bottom: 150px; margin-top: 50px;
+        }
+        .reviewcomment{
+            height: 500px;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
+<div th:include="~{/comm/header}"></div>
+<section class="bg-white py-8">
+    <div class="font-[sans-serif] bg-white ordermargin">
+        <div class="flex max-sm:flex-col gap-12 max-lg:gap-4 h-full ordercenter">
+
+            <div class="max-w-4xl w-full h-max rounded-md px-4 py-8 sticky top-0">
+                <h2 class="text-2xl font-bold text-gray-800">Review</h2>
+                <table class="mt-6 w-full border-collapse divide-y">
+                    <tbody class="whitespace-nowrap divide-y">
+                    <tr>
+                        <td class="p-4">
+                            <div class="flex items-center gap-4 w-max">
+                                <div class="h-32 shrink-0">
+                                    <img th:src="${productImg}" class="w-full h-full object-contain rounded-lg" />
+                                </div>
+                                <div>
+                                    <p class="text-base font-bold text-gray-800" th:text="${productName}"></p>
+                                    <p class="text-base font-semibold text-gray-300 text-sm" th:text="${productCategory}"></p>
+
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <form id="order-form" class="mt-8">
+                    <div class="mt-8">
+                        <div class="mt-8 grid md:grid-cols-1 gap-4">
+                            <input type="text" id="title" name="title" placeholder="제목을 입력해주세요."
+                                   class="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600"/>
+                        </div>
+                        <div class="mt-8 grid md:grid-cols-1 gap-4">
+                            <textarea type="text" id="comment" name="comment" placeholder="내용을 입력해주세요." class="reviewcomment px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600"></textarea>
+                        </div>
+                        <div class="flex gap-4 max-md:flex-col mt-8">
+                            <button type="button" class="rounded-md px-6 py-3 w-full font-semibold text-sm tracking-wide bg-transparent hover:bg-gray-100 border border-gray-300 text-gray-800 max-md:order-1">Cancel</button>
+                            <button type="button" id="submit-review" class="rounded-md px-6 py-3 w-full font-semibold text-sm tracking-wide text-white bg-gray-600 hover:bg-gray-700 focus:outline-none">Complete Purchase</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<div th:include="~{/comm/footer}"></div>
+<script>
+    document.getElementById('submit-review').addEventListener('click', function() {
+        var productId = [[${productId}]];
+        var title = document.getElementById('title').value;
+        var comment = document.getElementById('comment').value;
+
+        var reviewRequest = {
+            title: title,
+            comment: comment
+        };
+
+        fetch('/reviews/add?productId=' + productId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(reviewRequest)
+        })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+</script>
+
+</body>
+</html>

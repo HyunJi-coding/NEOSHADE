@@ -1,6 +1,9 @@
 package org.example.login.controller;
 
+import org.example.login.dto.Request.ReviewRequest;
+import org.example.login.entity.Products;
 import org.example.login.entity.Reviews;
+import org.example.login.service.ProductsService;
 import org.example.login.service.ReviewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +21,9 @@ import java.util.List;
 public class ReviewCon {
     @Autowired
     ReviewsService reviewsService;
+
+    @Autowired
+    ProductsService productsService;
 
     @GetMapping
     public String getUserReviews(HttpServletRequest request, Model model) {
@@ -41,10 +47,21 @@ public class ReviewCon {
         return "/review/list";
     }
 
+    @GetMapping("/write/{productId}")
+    public String getReviewWritePage(@PathVariable long productId, Model model) {
+        Products products = productsService.selectOne(productId);
+
+        model.addAttribute("productId", productId);
+        model.addAttribute("productImg", products.getImg());
+        model.addAttribute("productName", products.getName());
+        model.addAttribute("productCategory", products.getCategories().getName());
+
+        return "/member/reviewwrite";
+    }
+
     @PostMapping("/add")
     public ResponseEntity<String> addReview(HttpServletRequest request, @RequestParam long productId,
-                                            @RequestParam String title,@RequestParam String comment,
-                                            @RequestParam long rating) {
+                                            @RequestBody ReviewRequest reviewRequest) {
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute("ss_member_id");
 
@@ -54,9 +71,8 @@ public class ReviewCon {
 
         try {
             Reviews review = new Reviews();
-            review.setTitle(title);
-            review.setComment(comment);
-            review.setRating(rating);
+            review.setTitle(reviewRequest.getTitle());
+            review.setComment(reviewRequest.getComment());
             reviewsService.insert(review, userId, productId);
             return ResponseEntity.ok().body("리뷰가 작성되었습니다.");
         } catch (IllegalArgumentException e) {

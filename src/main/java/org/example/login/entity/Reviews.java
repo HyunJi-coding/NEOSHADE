@@ -16,7 +16,6 @@ public class Reviews {
     private long reviewId;
     private String title;
     private String comment;
-    private long rating;
 
     @ManyToOne
     @JoinColumn(name = "userId", referencedColumnName = "userId")
