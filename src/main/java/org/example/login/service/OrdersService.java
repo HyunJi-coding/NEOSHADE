@@ -29,20 +29,32 @@ public class OrdersService {
     @Autowired
     private PaymentsRepo paymentsRepo;
 
+    @Autowired
+    private ProductsRepo productsRepo;
+
     @Transactional
     public Orders processOrder(OrderRequest orderRequest, PaymentsRequest paymentRequest, long userId) {
-        Users user = usersRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        Users user = usersRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
         List<ShoppingCart> cartItems = shoppingCartRepo.findByUsersUserId(userId);
         List<OrderItems> orderItems = new ArrayList<>();
 
         for (ShoppingCart cartItem : cartItems) {
+            Products product = cartItem.getProducts();
+            if (product.getStock() < cartItem.getQuantity()) {
+                throw new RuntimeException("재고가 부족합니다.");
+            }
+
             OrderItems orderItem = OrderItems.builder()
-                    .product(cartItem.getProducts())
+                    .product(product)
                     .quantity(cartItem.getQuantity())
-                    .price(cartItem.getProducts().getPrice())
+                    .price(product.getPrice())
                     .build();
             orderItems.add(orderItem);
+
+            product.setStock(product.getStock() - cartItem.getQuantity());
+            productsRepo.save(product);
         }
 
         Orders order = Orders.builder()

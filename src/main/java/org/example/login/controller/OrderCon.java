@@ -1,10 +1,12 @@
 package org.example.login.controller;
 
+import org.example.login.dto.Response.OrderItemResponse;
 import org.example.login.dto.Response.OrdersResponse;
 import org.example.login.dto.Response.ShoppingCartResponse;
 import org.example.login.entity.Orders;
 import org.example.login.entity.ShoppingCart;
 import org.example.login.service.OrdersService;
+import org.example.login.service.ReviewsService;
 import org.example.login.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,8 @@ public class OrderCon {
     ShoppingCartService shoppingCartService;
     @Autowired
     OrdersService ordersService;
+    @Autowired
+    ReviewsService reviewsService;
 
     @GetMapping("/order")
     public String getOrderList(HttpServletRequest request, Model model) {
@@ -53,12 +57,23 @@ public class OrderCon {
         Long userId = (Long) session.getAttribute("ss_member_id");
 
         if (userId == null) {
-            return "redirect:/secure/login";
+            return "redirect:/users/login";
         }
 
         List<Orders> orders = ordersService.findByUsersUserId(userId);
         List<OrdersResponse> ordersResponseList = orders.stream()
-                .map(OrdersResponse::fromEntity)
+                .map(order -> {
+                    OrdersResponse response = OrdersResponse.fromEntity(order);
+                    List<OrderItemResponse> itemResponses = order.getOrderItems().stream()
+                            .map(item -> {
+                                OrderItemResponse itemResponse = OrderItemResponse.fromEntity(item);
+                                itemResponse.setReviewed(reviewsService.hasUserReviewedProduct(userId, item.getProduct().getProductId()));
+                                return itemResponse;
+                            })
+                            .collect(Collectors.toList());
+                    response.setItems(itemResponses);
+                    return response;
+                })
                 .collect(Collectors.toList());
 
         model.addAttribute("orders", ordersResponseList);
