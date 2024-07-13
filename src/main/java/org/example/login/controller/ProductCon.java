@@ -33,10 +33,22 @@ public class ProductCon {
     public String productsList(Model model) {
         List<ProductsResponse> productsList = productsService.selectAll()
                 .stream()
-                .map(this::convertToProductResponse)
+                .map(ProductsResponse::fromEntity)
                 .collect(Collectors.toList());
 
         model.addAttribute("productsList", productsList);
+        return "/product/productlist";
+    }
+
+    @GetMapping("/search")
+    public String searchProducts(@RequestParam("keyword") String keyword, Model model) {
+        List<ProductsResponse> searchResults = productsService.searchByKeyword(keyword)
+                .stream()
+                .map(ProductsResponse::fromEntity)
+                .collect(Collectors.toList());
+
+        model.addAttribute("productsList", searchResults);
+        model.addAttribute("keyword", keyword);
         return "/product/productlist";
     }
 
@@ -60,6 +72,8 @@ public class ProductCon {
 
         return "/product/productview";
     }
+
+
 
     private ProductsResponse convertToProductResponse(Products product) {
         Categories categories = product.getCategories();
@@ -88,7 +102,6 @@ public class ProductCon {
                 .reviewId(review.getReviewId())
                 .title(review.getTitle())
                 .comment(review.getComment())
-                .rating(review.getRating())
                 .createdAt(review.getCreatedAt())
                 .username(review.getUsers().getUsername())
                 .build();

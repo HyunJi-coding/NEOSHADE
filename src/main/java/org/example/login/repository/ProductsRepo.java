@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface ProductsRepo extends JpaRepository<Products, Long> {
-    List<Products> findAllByOrderByCreatedAtAsc();
     List<Products> findAllByOrderByCreatedAtDesc(Pageable pageable);
+    List<Products> findByCategoriesNameContainingOrNameContaining(String categoryKeyword, String nameKeyword);
 }
