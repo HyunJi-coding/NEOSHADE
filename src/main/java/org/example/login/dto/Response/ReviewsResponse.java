@@ -35,4 +35,16 @@ public class ReviewsResponse {
                 .createdAt(review.getCreatedAt())
                 .build();
     }
+
+    public static ReviewsResponse fromEntity2(Reviews review) {
+        return ReviewsResponse.builder()
+                .reviewId(review.getReviewId())
+                .title(review.getTitle())
+                .comment(review.getComment())
+                .createdAt(review.getCreatedAt())
+                .username(review.getUsers().getUsername())
+                .build();
+    }
+
+
 }

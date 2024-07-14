@@ -61,9 +61,9 @@ public class ProductCon {
         String formattedPrice = PriceFormatter.formatPrice(product.getPrice());
 
         Page<ReviewsResponse> reviewPage = reviewsService.getReviewsByProductId(productId, page, size)
-                .map(this::convertToReviewsResponse);
+                .map(ReviewsResponse::fromEntity2);
 
-        model.addAttribute("product", convertToProductResponse(product));
+        model.addAttribute("product", ProductsResponse.fromEntity(product));
         model.addAttribute("formattedPrice", formattedPrice);
         model.addAttribute("reviewList", reviewPage.getContent());
         model.addAttribute("currentPage", page);
@@ -75,37 +75,9 @@ public class ProductCon {
 
 
 
-    private ProductsResponse convertToProductResponse(Products product) {
-        Categories categories = product.getCategories();
-        CategoriesResponse categoriesResponse = convertToCategoriesResponse(categories);
 
-        return ProductsResponse.builder()
-                .productId(product.getProductId())
-                .name(product.getName())
-                .description(product.getDescription())
-                .price(product.getPrice())
-                .stock(product.getStock())
-                .img(product.getImg())
-                .createdAt(product.getCreatedAt())
-                .categories(categoriesResponse)
-                .build();
-    }
 
-    private CategoriesResponse convertToCategoriesResponse(Categories categories) {
-            return CategoriesResponse.builder()
-                    .name(categories.getName())
-                    .build();
-    }
 
-    private ReviewsResponse convertToReviewsResponse(Reviews review) {
-        return ReviewsResponse.builder()
-                .reviewId(review.getReviewId())
-                .title(review.getTitle())
-                .comment(review.getComment())
-                .createdAt(review.getCreatedAt())
-                .username(review.getUsers().getUsername())
-                .build();
-    }
 
 
 

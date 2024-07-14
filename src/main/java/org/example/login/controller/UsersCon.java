@@ -27,7 +27,7 @@ public class UsersCon {
 
     @PostMapping("/insert_exe")
     public String insertExe(@ModelAttribute UsersRequest userRequest) {
-        Users user = convertToUser(userRequest);
+        Users user = UsersRequest.fromEntity(userRequest);
         usersService.insert(user);
         return "redirect:/home";
     }
@@ -59,14 +59,6 @@ public class UsersCon {
     }
 
 
-    private Users convertToUser(UsersRequest userRequest) {
-        return Users.builder()
-                .username(userRequest.getUsername())
-                .email(userRequest.getEmail())
-                .password(userRequest.getPassword())
-                .gender(userRequest.getGender())
-                .birthDay(userRequest.getBirthDay())
-                .build();
-    }
+
 }
 
