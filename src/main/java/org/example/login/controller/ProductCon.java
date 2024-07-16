@@ -30,7 +30,7 @@ public class ProductCon {
     ReviewsService reviewsService;
 
     @GetMapping("/list")
-    public String productsList(Model model) {
+    public String getProductList(Model model) {
         List<ProductsResponse> productsList = productsService.selectAll()
                 .stream()
                 .map(ProductsResponse::fromEntity)
@@ -41,7 +41,7 @@ public class ProductCon {
     }
 
     @GetMapping("/search")
-    public String searchProducts(@RequestParam("keyword") String keyword, Model model) {
+    public String searchProductList(@RequestParam("keyword") String keyword, Model model) {
         List<ProductsResponse> searchResults = productsService.searchByKeyword(keyword)
                 .stream()
                 .map(ProductsResponse::fromEntity)
@@ -53,7 +53,7 @@ public class ProductCon {
     }
 
     @GetMapping("/{productId}")
-    public String productDetail(@PathVariable Long productId,
+    public String getProductDetail(@PathVariable Long productId,
                                 @RequestParam(defaultValue = "0") int page,
                                 @RequestParam(defaultValue = "3") int size,
                                 Model model) {

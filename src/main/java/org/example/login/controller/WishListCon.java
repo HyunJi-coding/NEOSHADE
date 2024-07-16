@@ -46,7 +46,7 @@ public class WishListCon {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addToWishList(HttpServletRequest request, @RequestParam Long productId) {
+    public ResponseEntity<String> addWishList(HttpServletRequest request, @RequestParam Long productId) {
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute("ss_member_id");
 

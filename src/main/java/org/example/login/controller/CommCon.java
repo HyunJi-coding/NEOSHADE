@@ -23,7 +23,7 @@ public class CommCon {
     ProductsService productsService;
 
     @GetMapping("/home")
-    public String listProducts(Model model,
+    public String getProductListPage(Model model,
                                @RequestParam(defaultValue = "0") int pageNo,
                                @RequestParam(defaultValue = "8") int pageSize) {
         List<Products> productsList = productsService.findLatestProducts(pageNo, pageSize);

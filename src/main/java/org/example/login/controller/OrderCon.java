@@ -52,7 +52,7 @@ public class OrderCon {
     }
 
     @GetMapping("/order/list")
-    public String getUserOrderList(HttpServletRequest request, Model model) {
+    public String getOrderedList(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute("ss_member_id");
 

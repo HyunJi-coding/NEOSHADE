@@ -24,7 +24,7 @@ public class ShoppingCartCon {
     ShoppingCartService shoppingCartService;
 
     @GetMapping
-    public String getUserShoppingCart(HttpServletRequest request, Model model) {
+    public String getShoppingCart(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute("ss_member_id");
 
@@ -47,7 +47,7 @@ public class ShoppingCartCon {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addToShoppingCart(HttpServletRequest request, @RequestParam long productId) {
+    public ResponseEntity<String> addShoppingCart(HttpServletRequest request, @RequestParam long productId) {
         HttpSession session = request.getSession();
         System.out.println("Add to Cart - Session ID: " + session.getId());
         Long userId = (Long) session.getAttribute("ss_member_id");

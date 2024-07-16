@@ -27,8 +27,7 @@ public class UsersCon {
 
     @PostMapping("/insert_exe")
     public String insertExe(@ModelAttribute UsersRequest userRequest) {
-        Users user = UsersRequest.fromEntity(userRequest);
-        usersService.insert(user);
+        usersService.insert(userRequest);
         return "redirect:/home";
     }
 
@@ -43,22 +42,28 @@ public class UsersCon {
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute("ss_member_id");
 
-
-        Users users = usersService.getUserById(userId);
+        UsersResponse users = usersService.getUserById(userId);
         model.addAttribute("users", users);
 
         return "/member/userupdate";
     }
 
     @PostMapping("/update_exe")
-    public String updateUser(HttpServletRequest request, @RequestParam String password, @RequestParam String gender, @RequestParam String birthDay) {
+    public String updateUser(HttpServletRequest request,
+                             @RequestParam(required = false) String password,
+                             @RequestParam(required = false) String gender,
+                             @RequestParam(required = false) String birthDay) {
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute("ss_member_id");
         usersService.updateUser(userId, password, gender, birthDay);
-        return "redirect:/users/" + userId;
+        return "redirect:/home";
     }
 
-
+    @PostMapping("/delete")
+    public String deleteUser(@RequestParam long keyId) {
+        usersService.deleteUser(keyId);
+        return "redirect:/home";
+    }
 
 }
 
