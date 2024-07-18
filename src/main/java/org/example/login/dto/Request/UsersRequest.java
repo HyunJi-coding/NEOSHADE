@@ -19,13 +19,13 @@ public class UsersRequest {
     private String gender;
     private String birthDay;
 
-    public static Users fromEntity(UsersRequest userRequest) {
+    public Users toEntity() {
         return Users.builder()
-                .username(userRequest.getUsername())
-                .email(userRequest.getEmail())
-                .password(userRequest.getPassword())
-                .gender(userRequest.getGender())
-                .birthDay(userRequest.getBirthDay())
+                .username(username)
+                .email(email)
+                .password(password)
+                .gender(gender)
+                .birthDay(birthDay)
                 .build();
     }
 }
