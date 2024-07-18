@@ -4,7 +4,7 @@ server:
 iamport:
   api:
     key: 0456330388304875
-    secret: IRAFbtISOQAxccAf9pC9vsQKQEDL5JitgeQ8vtZL2qb6PpuZuU2Kz1x4E470XO1PVNCaAtPWLY904zLS
+    secret: rCltjJcwUKbiu6cYNLDWu14Qm4q5ybloTKmUrQZaKABojEzpRiOqNGjJv3Eju7WPL5h8XUUjN9yJzg47
 
 spring:
   thymeleaf:
