@@ -47,6 +47,8 @@ public class UsersService {
         if (password != null && !password.isEmpty()) {
             Cm_encryp cm_encryp = new Cm_encryp();
             String hashedPassword = cm_encryp.encryptSha256(password);
+
+            user.setPassword(hashedPassword);
         }
 
         user.setGender(gender);
