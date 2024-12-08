@@ -8,7 +8,7 @@ database: MariaDB<br>
 build: Gradle<br>
 
 <h3>2. ERD 설계</h3>
-![그림1](https://github.com/user-attachments/assets/9723b29c-f506-48e1-94a7-b13ad9bdded3)
+<img src="https://github.com/user-attachments/assets/9723b29c-f506-48e1-94a7-b13ad9bdded3"/>
 
 <h3>3. 주요기능</h3>
 • 회원가입 및 로그인<br>
