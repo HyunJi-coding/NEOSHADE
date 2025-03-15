@@ -12,4 +12,10 @@ import java.util.List;
 public interface OrdersRepo extends JpaRepository<Orders, Long> {
     List<Orders> findByUsersUserId(long userId);
     long countByUsersUserIdAndOrderStatus(Long userId, String status);
+
+    @Query("SELECT DISTINCT o FROM Orders o " +
+            "JOIN FETCH o.orderItems oi " +
+            "JOIN FETCH oi.product " +
+            "WHERE o.users.userId = :userId")
+    List<Orders> findOrdersWithItemsAndProductsByUserId(@Param("userId") long userId);
 }

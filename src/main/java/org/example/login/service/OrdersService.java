@@ -98,4 +98,7 @@ public class OrdersService {
     public long countByOrderStatus(Long userId, String status) {
         return orderRepo.countByUsersUserIdAndOrderStatus(userId, status);
     }
+
+    public List<Orders> findOrdersWithItemsAndProducts(long userId) {
+        return ordersRepo.findOrdersWithItemsAndProductsByUserId(userId);
 }
