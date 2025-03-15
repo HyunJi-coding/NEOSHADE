@@ -16,7 +16,7 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long orderId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     private Users users;
 

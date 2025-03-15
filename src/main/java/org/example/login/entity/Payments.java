@@ -18,7 +18,7 @@ public class Payments {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long paymentId;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orderId", referencedColumnName = "orderId")
     private Orders order;
 

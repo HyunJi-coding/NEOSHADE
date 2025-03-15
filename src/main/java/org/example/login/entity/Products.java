@@ -28,7 +28,7 @@ public class Products {
     @OneToMany(mappedBy = "products")
     private List<Reviews> reviews;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoryId", referencedColumnName = "categoryId")
     @ToString.Exclude
     private Categories categories;

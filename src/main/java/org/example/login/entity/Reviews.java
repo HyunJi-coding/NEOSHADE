@@ -17,12 +17,12 @@ public class Reviews {
     private String title;
     private String comment;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     @ToString.Exclude
     private Users users;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "productId", referencedColumnName = "productId")
     @ToString.Exclude
     private Products products;
